@@ -1,7 +1,14 @@
 import numpy as np
+import time
+
+
+delays = [12, 3, 9, 21, 5, 6, 19, 7, 33, 11, 2, 17, 4]
 
 
 def get_random_ua():
+    delay = np.random.choice(delays)
+    time.sleep(delay)
+
     random_ua = ''
     ua_file = 'ua_file.txt'
     try:

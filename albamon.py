@@ -13,6 +13,7 @@ def extract_pages():
     user_agent = get_random_ua()
     headers = {'user-agent': user_agent}
     result = requests.get(URL, headers=headers)
+    print(result.request.headers)
     soup = BeautifulSoup(result.text, "html.parser")
     total_page = soup.find(
         "div", {"class": "pageSubTit"}).em.string
@@ -34,6 +35,7 @@ def extract_links(last_page):
         user_agent = get_random_ua()
         headers = {'user-agent': user_agent}
         result = requests.get(f"{URL}&page={page+1}", headers=headers)
+        print(result.request.headers)
         soup = BeautifulSoup(result.text, "html.parser")
         cNames = soup.find_all("p", {"class": "cName"})
         for cName in cNames:
@@ -46,6 +48,7 @@ def extract_jobs(links):
     jobs = []
     for link in links:
         job = extract_job(link)
+        print(job)
         jobs.append(job)
     return jobs
 
@@ -54,6 +57,7 @@ def extract_job(link):
     user_agent = get_random_ua()
     headers = {'user-agent': user_agent}
     result = requests.get(link, headers=headers)
+    print(result.request.headers)
     # result.encoding=None
     soup = BeautifulSoup(result.text, "html.parser")
     pay_info = soup.find("div", {"class": "payInfoBox"})
